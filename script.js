@@ -1,6 +1,6 @@
 // Replace these values with your actual Paystack keys
-const PAYSTACK_PUBLIC_KEY = 'pk_live_574f3fe773979c5ff4f7b13314980c236a10cd7a'; // Live Public Key
-const PAYSTACK_SECRET_KEY = 'sk_live_c9fc8e5a4524357671290f8a504da26cde56872f'; // Live Secret Key
+const PAYSTACK_PUBLIC_KEY = 'pk_live_'; // Live Public Key
+const PAYSTACK_SECRET_KEY = 'sk_live_'; // Live Secret Key
 
 // Sample product data in Kenyan Shillings (KES)
 const products = [
