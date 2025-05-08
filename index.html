@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wencreations Marchandise - Modern Online Store</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="#" class="logo">
+                <i class="fas fa-store"></i>
+                Wencreations Marchandise
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Shop</a></li>
+                    <li><a href="#">Collections</a></li>
+                    <li><a href="#">About</a></li>
+                    <li>
+                        <a href="#" class="cart-icon" id="open-cart">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="cart-count">0</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Discover Unique Creations</h1>
+            <p>Handcrafted merchandise designed with passion and creativity. Find the perfect piece to express your style.</p>
+            <a href="#products" class="btn btn-primary">Shop Now</a>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="container" id="products">
+        <h2 class="section-title">Featured Products</h2>
+        <div class="products" id="products-container">
+            <!-- Products will be loaded here via JavaScript -->
+        </div>
+    </section>
+
+    <!-- Cart Modal -->
+    <div class="modal" id="cart-modal">
+        <div class="modal-content">
+            <span class="close-modal" id="close-cart">&times;</span>
+            <h2>Your Shopping Cart</h2>
+            <div class="cart-items" id="cart-items">
+                <!-- Cart items will be loaded here -->
+                <p class="empty-cart-message">Your cart is empty</p>
+            </div>
+            <div class="cart-total">
+                Total: $<span id="cart-total">0.00</span>
+            </div>
+            <button class="btn btn-primary checkout-btn" id="checkout-btn">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div class="modal" id="payment-modal">
+        <div class="modal-content">
+            <span class="close-modal" id="close-payment">&times;</span>
+            <h2>Select Payment Method</h2>
+            
+            <div class="payment-methods">
+                <div class="payment-method" data-method="paystack">
+                    <div class="payment-method-icon">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <div class="payment-method-info">
+                        <h4>Paystack</h4>
+                        <p>Secure payment with credit/debit card or bank transfer</p>
+                    </div>
+                </div>
+                
+                <div class="payment-method" data-method="credit">
+                    <div class="payment-method-icon">
+                        <i class="far fa-credit-card"></i>
+                    </div>
+                    <div class="payment-method-info">
+                        <h4>Credit/Debit Card</h4>
+                        <p>Pay with Visa, Mastercard, or American Express</p>
+                    </div>
+                </div>
+                
+                <div class="payment-method" data-method="paypal">
+                    <div class="payment-method-icon">
+                        <i class="fab fa-paypal"></i>
+                    </div>
+                    <div class="payment-method-info">
+                        <h4>PayPal</h4>
+                        <p>Pay with your PayPal account</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Paystack Payment Form -->
+            <div class="paystack-form" id="paystack-form">
+                <h3>Paystack Payment</h3>
+                <p>You'll be redirected to Paystack to complete your payment securely.</p>
+                <div class="form-group">
+                    <label for="customer-email">Email Address</label>
+                    <input type="email" id="customer-email" class="form-control" placeholder="Your email for payment confirmation" required>
+                </div>
+                <button class="btn btn-primary" id="paystack-pay-btn">Pay with Paystack</button>
+            </div>
+            
+            <!-- Credit Card Form (hidden by default) -->
+            <div class="credit-form" id="credit-form" style="display: none;">
+                <h3>Credit Card Payment</h3>
+                <p>Enter your card details to complete the payment.</p>
+                <!-- Credit card form would go here -->
+            </div>
+            
+            <!-- PayPal Form (hidden by default) -->
+            <div class="paypal-form" id="paypal-form" style="display: none;">
+                <h3>PayPal Payment</h3>
+                <p>You'll be redirected to PayPal to complete your payment.</p>
+                <!-- PayPal form would go here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-column">
+                    <h3>Wencreations</h3>
+                    <p>Creating unique merchandise with passion and creativity since 2023.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Shop</h3>
+                    <ul>
+                        <li><a href="#">All Products</a></li>
+                        <li><a href="#">Featured</a></li>
+                        <li><a href="#">New Arrivals</a></li>
+                        <li><a href="#">Sale Items</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Customer Service</h3>
+                    <ul>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Shipping & Returns</a></li>
+                        <li><a href="#">Size Guide</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>About</h3>
+                    <ul>
+                        <li><a href="#">Our Story</a></li>
+                        <li><a href="#">Sustainability</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2023 Wencreations Marchandise. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Paystack Inline JS -->
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+    <!-- Custom JS -->
+    <script src="js/script.js"></script>
+</body>
+</html>
