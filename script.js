@@ -1,49 +1,49 @@
- // Replace these values with your actual Paystack keys
- const PAYSTACK_PUBLIC_KEY = 'pk_live_574f3fe773979c5ff4f7b13314980c236a10cd7a'; // Live Public Key
- const PAYSTACK_SECRET_KEY = 'sk_live_c9fc8e5a4524357671290f8a504da26cde56872f'; // Live Secret Key
+// Replace these values with your actual Paystack keys
+const PAYSTACK_PUBLIC_KEY = 'pk_live_574f3fe773979c5ff4f7b13314980c236a10cd7a'; // Live Public Key
+const PAYSTACK_SECRET_KEY = 'sk_live_c9fc8e5a4524357671290f8a504da26cde56872f'; // Live Secret Key
 
-// Sample product data
+// Sample product data in Kenyan Shillings (KES)
 const products = [
     {
         id: 1,
         title: "Abstract Art T-Shirt",
         description: "Premium cotton t-shirt with unique abstract art print.",
-        price: 29.99,
+        price: 4500, // ~$29.99 converted to KES
         image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
     },
     {
         id: 2,
         title: "Minimalist Notebook",
         description: "Eco-friendly notebook with premium paper and minimalist design.",
-        price: 14.99,
+        price: 2200, // ~$14.99
         image: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
     },
     {
         id: 3,
         title: "Ceramic Coffee Mug",
         description: "Handcrafted ceramic mug with ergonomic design.",
-        price: 19.99,
+        price: 3000, // ~$19.99
         image: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
     },
     {
         id: 4,
         title: "Leather Wallet",
         description: "Genuine leather wallet with multiple card slots.",
-        price: 39.99,
+        price: 6000, // ~$39.99
         image: "https://images.unsplash.com/photo-1546938576-6e6a64f317cc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
     },
     {
         id: 5,
         title: "Wireless Earbuds",
         description: "High-quality wireless earbuds with noise cancellation.",
-        price: 89.99,
+        price: 13500, // ~$89.99
         image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
     },
     {
         id: 6,
         title: "Yoga Mat",
         description: "Eco-friendly yoga mat with non-slip surface.",
-        price: 34.99,
+        price: 5300, // ~$34.99
         image: "https://images.unsplash.com/photo-1545205597-3d9d02c29597?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
     }
 ];
@@ -67,6 +67,11 @@ const paystackForm = document.getElementById('paystack-form');
 const paystackPayButton = document.getElementById('paystack-pay-btn');
 const customerEmailInput = document.getElementById('customer-email');
 
+// Format currency for display
+function formatCurrency(amount) {
+    return 'KSh ' + amount.toLocaleString('en-KE');
+}
+
 // Display products
 function displayProducts() {
     productsContainer.innerHTML = '';
@@ -80,7 +85,7 @@ function displayProducts() {
             <div class="product-info">
                 <h3 class="product-title">${product.title}</h3>
                 <p class="product-description">${product.description}</p>
-                <div class="product-price">$${product.price.toFixed(2)}</div>
+                <div class="product-price">${formatCurrency(product.price)}</div>
                 <div class="product-actions">
                     <button class="add-to-cart" data-id="${product.id}">Add to Cart</button>
                     <button class="wishlist"><i class="far fa-heart"></i></button>
@@ -170,7 +175,7 @@ function updateCart() {
 function renderCartItems() {
     if (cart.length === 0) {
         cartItemsContainer.innerHTML = '<p class="empty-cart-message">Your cart is empty</p>';
-        cartTotalElement.textContent = '0.00';
+        cartTotalElement.textContent = formatCurrency(0);
         return;
     }
     
@@ -190,7 +195,7 @@ function renderCartItems() {
                 <img src="${item.image}" alt="${item.title}" class="cart-item-image">
                 <div>
                     <h4 class="cart-item-title">${item.title}</h4>
-                    <div class="cart-item-price">$${item.price.toFixed(2)}</div>
+                    <div class="cart-item-price">${formatCurrency(item.price)}</div>
                 </div>
             </div>
             <div class="cart-item-actions">
@@ -207,7 +212,7 @@ function renderCartItems() {
     });
     
     // Update total
-    cartTotalElement.textContent = total.toFixed(2);
+    cartTotalElement.textContent = formatCurrency(total);
     
     // Add event listeners to quantity buttons
     document.querySelectorAll('.decrease').forEach(button => {
@@ -292,10 +297,10 @@ function payWithPaystack() {
         return;
     }
     
-    // Calculate total amount (in kobo for Paystack)
+    // Calculate total amount (in cents for Paystack)
     const totalAmount = cart.reduce((total, item) => total + (item.price * item.quantity * 100), 0);
     
-    // Generate a unique reference (you might want to use a better reference in production)
+    // Generate a unique reference
     const reference = 'WEN' + Date.now();
     
     // Initialize Paystack
@@ -303,7 +308,7 @@ function payWithPaystack() {
         key: PAYSTACK_PUBLIC_KEY,
         email: email,
         amount: totalAmount,
-        currency: 'NGN', // You can change this based on your needs
+        currency: 'KES', // Changed to Kenyan Shillings
         ref: reference,
         callback: function(response) {
             // Payment successful
